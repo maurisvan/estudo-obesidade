@@ -29,9 +29,17 @@ def carregar_recursos():
 
 pipeline, le = carregar_recursos()
 
-# 3. Cabeçalho Principal
-st.title("🏥 Sistema de Apoio ao Diagnóstico de Obesidade")
-st.subheader("Rede SUS - Sistema Único de Saúde")
+# 3. Cabeçalho Principal com Ícone do SUS
+col_logo, col_titulo = st.columns([1, 5])
+
+with col_logo:
+    # Agora ele busca o arquivo que você subiu no GitHub/Docker
+    st.image("logo_sus.png", width=120)
+
+with col_titulo:
+    st.title("Sistema de Apoio ao Diagnóstico de Obesidade")
+    st.subheader("Rede SUS - Sistema Único de Saúde")
+
 st.markdown("---")
 
 # Definição das Abas
@@ -104,20 +112,16 @@ with tab1:
                 pred_codificada = pipeline.predict(df_input)
                 resultado_raw = le.inverse_transform(pred_codificada)[0]
 
-                # Lógica de Normalização Integrada
+                # Lógica de Normalização
                 def normalize(level):
-                    if level == 'Insufficient_Weight':
-                        return "Abaixo do peso"
-                    elif level == 'Normal_Weight':
-                        return "Peso normal"
-                    elif level in ['Overweight_Level_I', 'Overweight_Level_II']:
-                        return "Sobrepeso"
-                    else:
-                        return "Obeso"
+                    if level == 'Insufficient_Weight': return "Abaixo do peso"
+                    elif level == 'Normal_Weight': return "Peso normal"
+                    elif level in ['Overweight_Level_I', 'Overweight_Level_II']: return "Sobrepeso"
+                    else: return "Obeso"
 
                 resultado_final = normalize(resultado_raw)
 
-                # Exibição
+                # Exibição dos Resultados
                 st.success(f"### Resultado: {resultado_final}")
                 st.info(f"**Classificação Detalhada:** {resultado_raw.replace('_', ' ')}")
                 st.info(f"**IMC Calculado:** {imc_input:.2f}")
@@ -125,11 +129,10 @@ with tab1:
             except Exception as e:
                 st.error(f"Erro na predição: {e}")
 
-# --- TAB 2: DASHBOARD NATIVO (PLOTLY) ---
+# --- TAB 2: DASHBOARD NATIVO ---
 with tab2:
-    st.header("📊 Indicadores da Clínica")
+    st.header("📊 Indicadores da Unidade")
     
-    # Métricas baseadas no relatório técnico Hospital Vita Nova
     m1, m2, m3 = st.columns(3)
     m1.metric("Pacientes Analisados", "2.111")
     m2.metric("Peso Médio", "86,59 kg")
@@ -149,31 +152,24 @@ with tab2:
         
     with g2:
         st.subheader("Transporte e Sedentarismo")
-        # Dados do seu relatório de mobilidade
         d_transp = {'Meio': ['Público', 'Automóvel', 'Caminhada'], 'Qtd': [1558, 463, 88]}
         fig_t = px.bar(d_transp, x='Meio', y='Qtd', color='Meio', text_auto=True)
         st.plotly_chart(fig_t, use_container_width=True)
 
 # --- TAB 3: RELATÓRIO LOOKER STUDIO ---
-with tab3: # Removidos os espaços extras aqui
+with tab3:
     st.header("📝 Relatórios e Insights")
     
-    # Botão de link direto
     st.link_button("🚀 Abrir Relatório Completo no Looker Studio", 
                    "https://lookerstudio.google.com/u/0/reporting/29f80ed0-090c-437e-a0e8-a3fd3b00e5be/page/2V5oF")
 
     st.markdown("---")
     
-    # Mantendo o iframe caso queira que o usuário visualize sem sair da página
     st.subheader("Visualização Rápida")
-    st.components.v1.iframe(
+    components.iframe(
         "https://lookerstudio.google.com/embed/reporting/29f80ed0-090c-437e-a0e8-a3fd3b00e5be/page/2V5oF",
         height=700,
         scrolling=True
     )
 
-    st.info("💡 Insight: O histórico familiar e o sedentarismo no transporte são os principais fatores identificados na amostra de 2.111 pacientes.")
-
-
-
-
+    st.info("💡 Insight: O histórico familiar e o sedentarismo no transporte são os principais fatores identificados.")
