@@ -5,8 +5,12 @@ import os
 import plotly.express as px
 import streamlit.components.v1 as components
 
-# 1. Configuração da Página
-st.set_page_config(page_title="Sistema de Diagnóstico - Obesidade", layout="wide")
+# 1. Configuração da Página (Título da Aba e Favicon)
+st.set_page_config(
+    page_title="Sistema de Diagnóstico - Obesidade", 
+    page_icon="logo_sus.png", 
+    layout="wide"
+)
 
 # Caminhos dos arquivos
 MODEL_PATH = 'modelo_obesidade.pkl'
@@ -29,11 +33,11 @@ def carregar_recursos():
 
 pipeline, le = carregar_recursos()
 
-# 3. Cabeçalho Principal com Ícone do SUS
+# 3. Cabeçalho Principal com Logo do SUS
 col_logo, col_titulo = st.columns([1, 5])
 
 with col_logo:
-    # Agora ele busca o arquivo que você subiu no GitHub/Docker
+    # Busca o arquivo logo_sus.png na raiz do seu diretório
     st.image("logo_sus.png", width=120)
 
 with col_titulo:
@@ -83,10 +87,10 @@ with tab1:
 
     if st.button("Realizar Diagnóstico"):
         if pipeline and le:
-            # Cálculo do IMC como feature de entrada para o modelo
+            # Cálculo do IMC
             imc_input = peso / (altura ** 2)
             
-            # DataFrame com os nomes exatos exigidos pelo seu modelo treinado
+            # DataFrame de entrada
             df_input = pd.DataFrame({
                 'genero': [mapa_genero[genero_v]],
                 'idade': [idade],
@@ -112,7 +116,7 @@ with tab1:
                 pred_codificada = pipeline.predict(df_input)
                 resultado_raw = le.inverse_transform(pred_codificada)[0]
 
-                # Lógica de Normalização
+                # Normalização do resultado
                 def normalize(level):
                     if level == 'Insufficient_Weight': return "Abaixo do peso"
                     elif level == 'Normal_Weight': return "Peso normal"
@@ -121,7 +125,7 @@ with tab1:
 
                 resultado_final = normalize(resultado_raw)
 
-                # Exibição dos Resultados
+                # Exibição
                 st.success(f"### Resultado: {resultado_final}")
                 st.info(f"**Classificação Detalhada:** {resultado_raw.replace('_', ' ')}")
                 st.info(f"**IMC Calculado:** {imc_input:.2f}")
