@@ -31,7 +31,7 @@ pipeline, le = carregar_recursos()
 
 # 3. Cabeçalho Principal
 st.title("🏥 Sistema de Apoio ao Diagnóstico de Obesidade")
-st.subheader("Hospital Vita Nova - Clínica de Diagnóstico")
+st.subheader("Rede SUS - Sistema Único de Saúde")
 st.markdown("---")
 
 # Definição das Abas
