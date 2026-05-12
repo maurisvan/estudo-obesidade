@@ -171,7 +171,7 @@ with tab3:
     
     st.subheader("Visualização Rápida")
     components.iframe(
-        "https://lookerstudio.google.com/embed/reporting/29f80ed0-090c-437e-a0e8-a3fd3b00e5be/page/2V5oF",
+        "https://datastudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa",
         height=700,
         scrolling=True
     )
