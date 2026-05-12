@@ -165,7 +165,7 @@ with tab3:
     st.header("📝 Relatórios e Insights")
     
     st.link_button("🚀 Abrir Relatório Completo no Looker Studio", 
-                   "https://lookerstudio.google.com/u/0/reporting/29f80ed0-090c-437e-a0e8-a3fd3b00e5be/page/2V5oF")
+                   "https://datastudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa")
 
     st.markdown("---")
     
