@@ -164,14 +164,17 @@ with tab2:
 with tab3:
     st.header("📝 Relatórios e Insights")
     
+    # O link do botão pode continuar o original para abrir em tela cheia
     st.link_button("🚀 Abrir Relatório Completo no Looker Studio", 
                    "https://lookerstudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa")
 
     st.markdown("---")
     
     st.subheader("Visualização Rápida")
-    components.iframe(
-        "https://lookerstudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa",
+    
+    # AQUI ESTÁ A MUDANÇA: Adicionamos o /embed/ e removemos o /reporting/ na URL do iframe
+    st.components.v1.iframe(
+        "https://lookerstudio.google.com/embed/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa/page/1M",
         height=700,
         scrolling=True
     )
