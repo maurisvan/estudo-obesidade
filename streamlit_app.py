@@ -140,8 +140,8 @@ with tab2:
     # KPIs
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Pacientes", "2.111")
-    k2.metric("Peso Médio", "86,59 kg", delta="Estável")
-    k3.metric("Idade Média", "24 anos")
+    k2.metric("Peso Médio", "89,63 kg", delta="Estável")
+    k3.metric("Idade Média", "23 anos")
     k4.metric("Fator de Risco", "81%", help="Pacientes com histórico familiar")
 
     st.markdown("---")
