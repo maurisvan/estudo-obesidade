@@ -135,22 +135,24 @@ with tab1:
 
 # --- TAB 2: DASHBOARD NATIVO ---
 with tab2:
-    st.header("📊 Indicadores da Unidade")
+    st.header("📊 Painel de Indicadores Locais")
     
-    m1, m2, m3 = st.columns(3)
-    m1.metric("Pacientes Analisados", "2.111")
-    m2.metric("Peso Médio", "86,59 kg")
-    m3.metric("Idade Média", "24 anos")
-    
+    # KPIs
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric("Pacientes", "2.111")
+    k2.metric("Peso Médio", "86,59 kg", delta="Estável")
+    k3.metric("Idade Média", "24 anos")
+    k4.metric("Fator de Risco", "81%", help="Pacientes com histórico familiar")
+
     st.markdown("---")
     
     g1, g2 = st.columns(2)
     with g1:
-        st.subheader("Distribuição de Obesidade")
+        st.subheader("Distribuição por Categoria")
         fig_p = px.pie(
             names=['Obesidade I', 'Obesidade III', 'Obesidade II', 'Sobrepeso II', 'Sobrepeso I', 'Peso Normal', 'Abaixo do Peso'],
             values=[16.6, 15.3, 14.1, 13.7, 13.7, 13.6, 12.9],
-            hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel
+            hole=0.4, color_discrete_sequence=px.colors.qualitative.T10
         )
         st.plotly_chart(fig_p, use_container_width=True)
         
