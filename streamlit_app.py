@@ -165,13 +165,13 @@ with tab3:
     st.header("📝 Relatórios e Insights")
     
     st.link_button("🚀 Abrir Relatório Completo no Looker Studio", 
-                   "https://datastudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa")
+                   "https://lookerstudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa")
 
     st.markdown("---")
     
     st.subheader("Visualização Rápida")
     components.iframe(
-        "https://datastudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa",
+        "https://lookerstudio.google.com/reporting/a2861988-83f6-4037-ab24-5b046d3b76fa",
         height=700,
         scrolling=True
     )
